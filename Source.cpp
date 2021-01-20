@@ -22,13 +22,6 @@ bool GetBranch(Node* rootNode, Node* targetNode, vector<int>& largestBranch) {
 	return false;
 }
 
-void PrintBranch(Node* rootNode, Node* targetNode, vector<int>& largestBranch, int largestSum) {
-	GetBranch(rootNode, targetNode, largestBranch);
-	cout << "Branch with the largest sum is: ";
-	for (auto i : largestBranch)
-		cout << i << " ";
-	cout << "-> SUM = " << largestSum;
-}
 
 void LargestSumBranch(Node* rootNode, Node** targetNode, int currentSum, int& largestSum)
 {
@@ -45,6 +38,14 @@ void LargestSumBranch(Node* rootNode, Node** targetNode, int currentSum, int& la
 	LargestSumBranch(rootNode->pRight, targetNode, currentSum, largestSum);
 }
 
+void PrintBranchWithLargestSum(Node* rootNode, Node* targetNode, vector<int>& largestBranch, int largestSum) {
+	LargestSumBranch(rootNode, &targetNode, 0, largestSum);
+	GetBranch(rootNode, targetNode, largestBranch);
+	cout << "Branch with the largest sum is: ";
+	for (auto i : largestBranch)
+		cout << i << " ";
+	cout << "-> SUM = " << largestSum;
+}
 
 void main()
 {
@@ -61,6 +62,5 @@ void main()
 	Node* targetNode = nullptr;
 	int largestSum = 0;
 	vector<int> largestBranch;
-	LargestSumBranch(pRoot, &targetNode, 0, largestSum);
-	PrintBranch(pRoot, targetNode, largestBranch, largestSum);
+	PrintBranchWithLargestSum(pRoot, targetNode, largestBranch, largestSum);
 }
